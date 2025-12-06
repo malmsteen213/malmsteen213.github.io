@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Football Performance Hub</title>
+  <style>
+    * { box-sizing: border-box; margin:0; padding:0 }
+    :root{
+      --bg-1:#071526; --bg-2:#0f2a3f; --accent:#1fb6ff; --accent-dark:#0aa0d9; --card:#0d2b3f; --muted:#bcd7ea;
+    }
+    body{
+      font-family: Inter, system-ui, -apple-system, 'Poppins', sans-serif;
+      background: linear-gradient(180deg,var(--bg-1),var(--bg-2));
+      color: #eaf6ff;
+      min-height:100vh;
+      -webkit-font-smoothing:antialiased;
+      padding-bottom:40px;
+    }
+    /* subtle football texture */
+    body::before{
+      content:""; position:fixed; inset:0; opacity:0.03; pointer-events:none; background-image:radial-gradient(circle at 10% 10%, rgba(255,255,255,0.08), transparent 2%), radial-gradient(circle at 90% 90%, rgba(255,255,255,0.04), transparent 2%);
+      mix-blend-mode:overlay;
+    }
+    header{ background:linear-gradient(90deg, rgba(13,43,63,0.95), rgba(9,28,46,0.95)); padding:28px 20px; text-align:center; position:sticky; top:0; z-index:50; border-bottom:1px solid rgba(255,255,255,0.04);}
+    header h1{ font-size:2.6rem; color:var(--accent); letter-spacing:2px; font-weight:700 }
+    header p{subtle:; color:var(--muted); margin-top:8px; font-style:italic }
+    nav{ margin-top:14px; display:flex; justify-content:center; gap:20px; flex-wrap:wrap}
+    nav a{ color: #dff4ff; text-decoration:none; padding:8px 12px; border-radius:8px; transition:all .18s ease;}
+    nav a.active{ background:rgba(31,182,255,0.12); color:var(--accent); font-weight:600 }
+    nav a:hover{ transform:translateY(-2px); color:var(--accent) }
+
+    main{ max-width:1200px; margin:28px auto; padding:0 20px }
+    .page { display:none }
+    .page.active { display:block }
+    .page-title{ color:var(--accent); text-align:center; font-size:1.8rem; margin-bottom:12px }
+
+    /* Cards grid */
+    .grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px }
+    .card{ background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:14px; border-radius:12px; border:1px solid rgba(255,255,255,0.04); box-shadow:0 6px 18px rgba(2,8,23,0.6) }
+    .card img{ width:100%; border-radius:8px; display:block; margin:10px 0 }
+    .card h3{ color:var(--accent); margin-bottom:6px }
+    .card p{ color:var(--muted); font-size:0.95rem; line-height:1.4 }
+    .meta{ display:flex; gap:10px; flex-wrap:wrap; margin:8px 0 }
+    .meta span{ background:rgba(255,255,255,0.02); padding:6px 8px; border-radius:8px; color:#dff4ff; font-size:0.85rem }
+
+    /* Explore slider */
+    .explore-track{ display:flex; gap:16px; overflow-x:auto; padding:12px; scroll-snap-type:x mandatory }
+    .explore-item{ min-width:320px; flex:0 0 320px; scroll-snap-align:center }
+
+    /* football ornaments */
+    .badge{ display:inline-flex; align-items:center; gap:8px; background:linear-gradient(90deg,var(--accent),var(--accent-dark)); color:#01222f; padding:6px 10px; border-radius:999px; font-weight:700 }
+    .soccer-icon{ width:20px; height:20px; display:inline-block }
+
+    /* About content */
+    .about { max-width:900px; margin:0 auto; color:var(--muted); text-align:left; line-height:1.7; background:rgba(255,255,255,0.02); padding:18px; border-radius:10px; border:1px solid rgba(255,255,255,0.03) }
+
+    footer{ text-align:center; margin-top:28px; color:rgba(255,255,255,0.6); font-size:0.9rem }
+
+    /* responsive tweaks */
+    @media (max-width:640px){ header h1{ font-size:1.8rem } .explore-item{ min-width:260px; flex:0 0 260px } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Football Performance Hub</h1>
+    <p style="color:var(--muted)">Rekap karier & performa pemain sejak debut — ringkas, visual, dan mudah dibaca</p>
+    <nav>
+      <a href="#" class="active" data-page="home">Beranda</a>
+      <a href="#" data-page="explore">Eksplorasi Pemain</a>
+      <a href="#" data-page="about">Tentang Statistik</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="page active">
+      <h2 class="page-title">Ringkasan Cepat Pemain</h2>
+      <div class="grid">
+        <article class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center">
+            <h3>Cristiano Ronaldo <span class="badge"><svg class="soccer-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.5 4.5L19 8l-3.5 3L16 16l-4-2-4 2 1.5-5L5 8l4.5-1.5L12 2z" fill="#01222f"/></svg> CR7</span></h3>
+            <small style="color:var(--muted)">Debut: 2002</small>
+          </div>
+          <img src="ronaldo.jpg" alt="Cristiano Ronaldo">
+          <div class="meta"><span>Umur: 40</span><span>Gol: 890+</span><span>Assist: 250+</span></div>
+          <p style="color:var(--muted)"><strong>Cedera:</strong> Minim — kondisi stabil. <strong>Kartu:</strong> Sedang akumulasi. Ronaldo dikenal karena daya ledak, penyelesaian akhir, dan ketajaman di area penalti.</p>
+        </article>
+
+        <article class="card">
+          <h3>Lionel Messi <span class="badge">LM</span></h3>
+          <img src="messi.jpg" alt="Lionel Messi">
+          <div class="meta"><span>Umur: 37</span><span>Debut: 2004</span><span>Gol: 821+</span></div>
+          <p class="muted">Playmaker dan finisher; dribbling serta visi permainan yang membedakan Messi dari rekan sezamannya.</p>
+        </article>
+
+        <article class="card">
+          <h3>Neymar Jr. <span class="badge">NJ</span></h3>
+          <img src="neymarjr.jpg" alt="Neymar">
+          <div class="meta"><span>Umur: 33</span><span>Debut: 2009</span><span>Gol: 450+</span></div>
+          <p class="muted">Skill individu tinggi, sering menjadi pembeda dalam momen 1v1. Perhatikan sejarah cedera saat menilai ketersediaan musim panjang.</p>
+        </article>
+
+        <article class="card">
+          <h3>Karim Benzema <span class="badge">KB</span></h3>
+          <img src="benzema.jpg" alt="Karim Benzema">
+          <div class="meta"><span>Umur: 37</span><span>Debut: 2005</span><span>Gol: 450+</span></div>
+          <p class="muted">Striker teknik yang mengandalkan hubungan antar pemain dan penyelesaian klinis di kotak penalti.</p>
+        </article>
+        
+        <article class="card">
+          <h3>Toni Kroos</h3>
+          <img src="tonikroos.jpg" alt="Kroos">
+          <div class="meta"><span>Debut: 2007</span><span>Umur: 35</span></div>
+          <p class="muted">Gelandang dengan passing presisi, ideal sebagai pemutar bola. Dikenal dengan tendangan sudut yang akurat.</p>
+        </article>
+
+        <article class="card">
+          <h3>Gareth Bale</h3>
+          <img src="gareth.jpg" alt="Bale">
+          <div class="meta"><span>Debut: 2006</span><span>Umur: 35</span></div>
+          <p class="muted">Kecepatan dan tendangan khas jarak jauh — karier dipengaruhi beberapa kali cedera hamstring.</p>
+        </article>
+
+        <article class="card">
+          <h3>Iker Casillas</h3>
+          <img src="ikercasillas.jpg" alt="Casillas">
+          <div class="meta"><span>Debut: 1999</span><span>Umur: 43</span></div>
+          <p class="muted">Kiper legendaris dengan rekam jejak clean sheet tinggi. Kapten dan pemimpin tim yang karismatik.</p>
+        </article>
+
+        <article class="card">
+          <h3>Mesut Özil</h3>
+          <img src="ozil.jpg" alt="Ozil">
+          <div class="meta"><span>Debut: 2006</span><span>Umur: 36</span></div>
+          <p class="muted">Visioner, playmaker dengan assist terbanyak selama kariernya. Kunci dalam menciptakan peluang.</p>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="explore" class="page">
+      <h2 class="page-title">Eksplorasi Pemain (geser kanan/kiri)</h2>
+      <div style="text-align:center; color:var(--muted); margin-bottom:10px">Setiap kartu berisi ringkasan dan tombol untuk detail lebih lanjut.</div>
+      <div class="explore-track" id="exploreTrack">
+        <div class="explore-item card" data-player="cr7">
+          <h3>Cristiano Ronaldo</h3>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Cristiano_Ronaldo_2018.jpg" alt="Cristiano Ronaldo">
+          <div class="meta"><span>Debut: 2002</span><span>Umur: 40</span></div>
+          <p class="muted">Gol total 890+. Klik untuk melihat riwayat musim dan detail cedera.</p>
+        </div>
+
+        <div class="explore-item card" data-player="messi">
+          <h3>Lionel Messi</h3>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Messi_2022.jpg" alt="Messi">
+          <div class="meta"><span>Debut: 2004</span><span>Umur: 37</span></div>
+          <p class="muted">Playmaker klasik — ringkasan karier & statistik inti.</p>
+        </div>
+
+        <div class="explore-item card" data-player="neymar">
+          <h3>Neymar Jr.</h3>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Neymar_in_2018.jpg" alt="Neymar">
+          <div class="meta"><span>Debut: 2009</span><span>Umur: 33</span></div>
+          <p class="muted">Catatan cedera perlu menjadi pertimbangan dalam evaluasi ketersediaan.</p>
+        </div>
+
+        <div class="explore-item card" data-player="benzema">
+          <h3>Karim Benzema</h3>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Karim_Benzema_2018.jpg" alt="Benzema">
+          <div class="meta"><span>Debut: 2005</span><span>Umur: 37</span></div>
+          <p class="muted">Striker komplet dengan kontribusi gol dan assist.</p>
+        </div>
+
+        <div class="explore-item card" data-player="kroos">
+          <h3>Toni Kroos</h3>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/2022-07-27_Fußball%2C_1._Bundesliga%2C_Media_Day_2022%2C_Bayer_04_Leverkusen_1DX_1783_by_Stepro_%28cropped%29.jpg" alt="Kroos">
+          <div class="meta"><span>Debut: 2007</span><span>Umur: 35</span></div>
+          <p class="muted">Gelandang dengan passing presisi, ideal sebagai pemutar bola.</p>
+        </div>
+
+        <div class="explore-item card" data-player="bale">
+          <h3>Gareth Bale</h3>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/d/d1/Gareth_Bale_2018.jpg" alt="Bale">
+          <div class="meta"><span>Debut: 2006</span><span>Umur: 35</span></div>
+          <p class="muted">Kecepatan dan tendangan khas — karier dipengaruhi cedera.</p>
+        </div>
+
+        <div class="explore-item card" data-player="casillas">
+          <h3>Iker Casillas</h3>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Iker_Casillas_2018.jpg" alt="Casillas">
+          <div class="meta"><span>Debut: 1999</span><span>Umur: 43</span></div>
+          <p class="muted">Kiper legendaris dengan rekam jejak clean sheet tinggi.</p>
+        </div>
+
+        <div class="explore-item card" data-player="ozil">
+          <h3>Mesut Özil</h3>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Mesut_%C3%96zil_2018.jpg" alt="Ozil">
+          <div class="meta"><span>Debut: 2006</span><span>Umur: 36</span></div>
+          <p class="muted">Visioner, playmaker dengan assist banyak selama kariernya.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="about" class="page">
+      <h2 class="page-title">Sejarah Pencatatan Statistik Sepak Bola</h2>
+      <div class="about">
+        <p><strong>Awal pencatatan:</strong> Pada era awal sepak bola profesional, statistik yang dicatat terbatas pada gol dan hasil pertandingan. Klub dan media membuat catatan manual untuk menilai performa pemain.</p>
+        <p><strong>Perkembangan modern:</strong> Seiring digitalisasi pada 1990-an dan 2000-an, metrik lanjutan seperti assist, clean sheet, passing accuracy, expected goals (xG), dribble success, dan data tracking (kecepatan, jarak lari) menjadi umum. Perusahaan pengumpul data dan sensor in-stadium memungkinkan analisis yang sangat detail.</p>
+        <p><strong>Manfaat:</strong> Statistik membantu scouting, analisis taktik, manajemen beban latihan, dan keputusan transfer. Namun, data harus selalu dikombinasikan dengan observasi manusia untuk konteks taktis dan kondisi fisik pemain.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    © 2025 Football Performance Hub — Sumber foto: Wikimedia Commons (foto asli, non-AI). Konten ringkasan.
+  </footer>
+
+  <script>
+    // Robust navigation: avoid null deref if page id missing.
+    document.addEventListener('DOMContentLoaded', () => {
+      const links = Array.from(document.querySelectorAll('nav a'));
+      const pages = Array.from(document.querySelectorAll('.page'));
+      const pageIds = pages.map(p => p.id);
+
+      links.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const page = link.dataset.page;
+
+          // deactivate all links
+          links.forEach(a => a.classList.remove('active'));
+          link.classList.add('active');
+
+          // hide all pages
+          pages.forEach(p => p.classList.remove('active'));
+
+          // guard: if page exists, activate it; otherwise warn and show home
+          if (page && pageIds.includes(page)) {
+            const el = document.getElementById(page);
+            if (el) el.classList.add('active');
+          } else {
+            console.warn('Requested page not found:', page);
+            // fallback to home
+            const home = document.getElementById('home');
+            if (home) home.classList.add('active');
+          }
+        });
+      });
+
+      // small enhancement: keyboard left/right to navigate explore slider
+      const track = document.getElementById('exploreTrack');
+      if(track){
+        document.addEventListener('keydown', (ev) => {
+          if(ev.key === 'ArrowRight') track.scrollBy({left: 340, behavior:'smooth'});
+          if(ev.key === 'ArrowLeft') track.scrollBy({left: -340, behavior:'smooth'});
+        });
+      }
+    });
+  </script>
+</body>
+</html>
